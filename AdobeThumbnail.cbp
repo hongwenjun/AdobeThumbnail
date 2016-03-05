@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="AdobeThumbnail" />
+		<Option pch_mode="2" />
+		<Option compiler="msvc10" />
+		<Build>
+			<Target title="Debug">
+				<Option output="AI/AdobeThumbnail" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="msvc10" />
+				<Compiler>
+					<Add option="/Zi" />
+					<Add option="/D_DEBUG" />
+					<Add option="/MTd" />
+				</Compiler>
+				<Linker>
+					<Add option="/DEBUG" />
+					<Add library="libcmtd.lib" />
+					<Add library="libcpmtd.lib" />
+				</Linker>
+			</Target>
+			<Target title="Release">
+				<Option output="AI/AdobeThumbnail" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="msvc10" />
+				<Compiler>
+					<Add option="/Ox" />
+					<Add option="/DNDEBUG" />
+					<Add option="/MT" />
+				</Compiler>
+				<Linker>
+					<Add library="libcmt.lib" />
+					<Add library="libcpmt.lib" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="/W3" />
+			<Add option="/EHsc" />
+		</Compiler>
+		<Unit filename="AdobeThumbnail.cpp" />
+		<Unit filename="AdobeThumbnail.h" />
+		<Unit filename="AdoeFileXML.h" />
+		<Unit filename="ConsoleApp/main.cpp" />
+		<Unit filename="Thumb_ico.rc">
+			<Option compilerVar="WINDRES" />
+		</Unit>
+		<Unit filename="ZLib/adler32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/compress.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/crc32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/crc32.h" />
+		<Unit filename="ZLib/crypt.h" />
+		<Unit filename="ZLib/deflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/deflate.h" />
+		<Unit filename="ZLib/gzclose.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/gzguts.h" />
+		<Unit filename="ZLib/gzlib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/gzread.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/gzwrite.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/infback.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/inffast.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/inffast.h" />
+		<Unit filename="ZLib/inffixed.h" />
+		<Unit filename="ZLib/inflate.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/inflate.h" />
+		<Unit filename="ZLib/inftrees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/inftrees.h" />
+		<Unit filename="ZLib/ioapi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/ioapi.h" />
+		<Unit filename="ZLib/iowin32.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/iowin32.h" />
+		<Unit filename="ZLib/mztools.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/mztools.h" />
+		<Unit filename="ZLib/trees.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/trees.h" />
+		<Unit filename="ZLib/uncompr.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/unzip.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/unzip.h" />
+		<Unit filename="ZLib/zconf.h" />
+		<Unit filename="ZLib/zip.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/zip.h" />
+		<Unit filename="ZLib/zlib.h" />
+		<Unit filename="ZLib/zutil.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ZLib/zutil.h" />
+		<Unit filename="atpch.h" />
+		<Unit filename="corel_thumbnail.cpp" />
+		<Unit filename="corel_thumbnail.h" />
+		<Unit filename="coreldraw_riffinfo.cpp" />
+		<Unit filename="coreldraw_riffinfo.h" />
+		<Unit filename="deAi7Thumb.cpp" />
+		<Unit filename="deAi7Thumb.h" />
+		<Unit filename="otherapi.cpp" />
+		<Unit filename="otherapi.h" />
+		<Unit filename="resource.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

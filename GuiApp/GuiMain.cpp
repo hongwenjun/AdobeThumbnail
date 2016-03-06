@@ -120,9 +120,9 @@ void InitXC_Window(HWINDOW& hWindow)
 
     //创建图片元素
     hPic1 = XPic_Create(656, 200, 270, 256, hWindow);
-    XPic_SetImage(hPic1, XImage_LoadFile(L"Thumbnail.dat")); //设置显示图片
+    XPic_SetImage(hPic1, XImage_LoadFile(L"ACThumbs.png")); //设置显示图片
 
-    hPic2 = XPic_Create(800, 4, 128, 128, hWindow);
+    hPic2 = XPic_Create(798, 6, 128, 128, hWindow);
     XPic_SetImage(hPic2, XImage_LoadFile(L"Thumbnail.dat")); //设置显示图片
 
 //    hPic3 = XPic_Create(654, 416, 128, 128, hWindow);

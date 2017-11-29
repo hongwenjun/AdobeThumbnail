@@ -129,7 +129,7 @@ bool rgb_makeBmp_tofile(string& rgb, size_t width, size_t height, const char* bm
 
     // 由于前面解码的数据是RGB标准数据，而BMP存储为BGR顺序
     // 由于BMP写文件最下面先读写，要翻转
-    for (size_t i = 0 ; i <= rgb.size() ; i += 3) {
+    for (size_t i = 0 ; i <= rgb.size() -2 ; i += 3) {
         std::swap(rgb[i] , rgb[i + 2]);
     }
     const char* px = rgb.c_str();

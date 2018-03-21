@@ -1,3 +1,5 @@
+蘭雅sRGB 龙芯小本服务器  http://sRGB.vicp.net
+
 # AdobeThumbnail
     Adobe AI EPS INDD 和CorelDRAW 缩略图收集工具  版权所有 2016.3 Hongwenjun (蘭公子)
 

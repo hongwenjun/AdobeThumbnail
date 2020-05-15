@@ -1,4 +1,9 @@
-蘭雅sRGB 龙芯小本服务器  http://sRGB.vicp.net
+Adobe_AI_EPS_INDD_和CorelDRAW_缩略图收集工具 使用演示视频
+
+youtube链接:     https://youtu.be/pH5Zw5Cx6-8
+
+bilibili链接:    https://www.bilibili.com/video/BV16K411W7ro/
+
 
 # AdobeThumbnail
     Adobe AI EPS INDD 和CorelDRAW 缩略图收集工具  版权所有 2016.3 Hongwenjun (蘭公子)

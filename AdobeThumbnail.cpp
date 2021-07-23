@@ -7,7 +7,7 @@
 bool AdobeThumbnail(const char* adobe_filename , const char* savejpeg_filename)
 {
     string file_ext(adobe_filename);
-    string rs = "(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps))";  // 正则字符串，exp开始的单词
+    string rs = "(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF))";  // 正则字符串，exp开始的单词
     std::regex expression(rs);                   // 字符串传递给构造函数，建立正则表达式
     bool ret = std::regex_match(file_ext, expression);
     if (!ret) {

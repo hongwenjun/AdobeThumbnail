@@ -11,7 +11,7 @@ WCHAR savePath[MAX_PATH] = L"D:\\Thumbs缩略图";
 
 // 全局句柄
 HWINDOW hWindow;
-HELE  keyEdit, pathEdit , hList , hStatic;
+HELE  keyEdit, pathEdit, hList, hStatic;
 HELE hPic1, hPic2, hPic3;
 
 
@@ -27,7 +27,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (IsFileExist(ConfigFile))
         LoadConfigFile();
 
-    hWindow = XWnd_CreateWindow(0, 0, 950, 600, L"Adobe AI EPS INDD 和CorelDRAW 缩略图收集工具  版权所有 2016.3 Hongwenjun (蘭公子)"); // 创建窗口
+    hWindow = XWnd_CreateWindow(0, 0, 950, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2021 Hongwenjun (蘭雅)"); // 创建窗口
     if (hWindow) {
         // 设置图标
         HICON logo_hIcon = LoadIcon(hInstance, (LPCTSTR)IDI_ICON1);
@@ -44,7 +44,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
 // 读取和保存配置
 void LoadConfigFile()
 {
-    wfstream wFile(ConfigFile , fstream::in);
+    wfstream wFile(ConfigFile, fstream::in);
     wFile.imbue(locale("chs"));
     wFile.getline(keyFile, MAX_PATH);
     wFile.getline(savePath, MAX_PATH);
@@ -52,7 +52,7 @@ void LoadConfigFile()
 }
 void SaveConfigFile()
 {
-    wfstream wFile(ConfigFile , fstream::out);
+    wfstream wFile(ConfigFile, fstream::out);
     wFile.imbue(locale("chs"));
     wFile << keyFile << endl << savePath << endl;
     wFile.close();
@@ -74,8 +74,8 @@ void InitXC_Window(HWINDOW& hWindow)
 //   XWnd_SetImage(hWindow, XImage_LoadFile(L"GuiBG.dll")); // 设置窗口背景图片
 
     // 创建编辑框
-    keyEdit = XEdit_Create(1, 2, 302, 22, hWindow);
-    pathEdit = XEdit_Create(412, 2, 270, 22, hWindow);
+    keyEdit = XEdit_Create(1, 2, 300, 22, hWindow);
+    pathEdit = XEdit_Create(410, 2, 241, 22, hWindow);
 
     // 读取配置到文本框
     XEdit_SetText(keyEdit, keyFile);
@@ -87,14 +87,14 @@ void InitXC_Window(HWINDOW& hWindow)
     XEle_EnableToolTips(keyButton, true);
     XEle_SetToolTips(keyButton, L"请输入关键字,用空格隔开");
 
-    HELE pathButton = XBtn_Create(685, 2, 98, 22, L"缩略图保存目录", hWindow);
+    HELE pathButton = XBtn_Create(656, 2, 80, 32, L"选择目录", hWindow);
     XEle_EnableToolTips(pathButton, true);
     XEle_SetToolTips(pathButton, L"选择缩略图保存的目录");
 
-    HELE runButton = XBtn_Create(685, 30, 88, 32, L"开始执行", hWindow);
+    HELE runButton = XBtn_Create(656, 40, 80, 40, L"开始执行", hWindow);
     XEle_EnableToolTips(runButton, true);
     XEle_SetToolTips(runButton, L"开始执行提取缩略图");
-    HELE closeButton = XBtn_Create(685, 70, 88, 32, L"保存关闭", hWindow);
+    HELE closeButton = XBtn_Create(656, 88, 80, 32, L"保存关闭", hWindow);
 
 //    // 注册文本框输入事件
 //    XEle_RegisterEvent(keyEdit, XE_EDIT_CHANGE, keyEditChange);
@@ -115,14 +115,15 @@ void InitXC_Window(HWINDOW& hWindow)
     XList_AddColumn(hList, 100, L"文件版本", 2);
 
     // 创建静态文本
-    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD 和CorelDRAW 缩略图收集工具  版权所有 2013.06 Hongwenjun (蘭公子)", hWindow);
+    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2021 Hongwenjun (蘭雅)", hWindow);
 
+    XStatic_Create(780, 195, 160, 18, L"微信扫一扫打赏作者", hWindow);
 
     //创建图片元素
-    hPic1 = XPic_Create(656, 200, 270, 256, hWindow);
+    hPic1 = XPic_Create(656, 250, 270, 256, hWindow);
     XPic_SetImage(hPic1, XImage_LoadFile(L"ACThumbs.png")); //设置显示图片
 
-    hPic2 = XPic_Create(798, 6, 128, 128, hWindow);
+    hPic2 = XPic_Create(740, 2, 190, 190, hWindow);
     XPic_SetImage(hPic2, XImage_LoadFile(L"Thumbnail.dat")); //设置显示图片
 
 //    hPic3 = XPic_Create(654, 416, 128, 128, hWindow);
@@ -159,7 +160,7 @@ bool CALLBACK keyBtnClick(HELE hEle, HELE hEventEle)
     // 删除所有项目
     XList_DeleteAllItems(hList);
 
-    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|cdr|CDR|Cdr))";  // 正则字符串，exp开始的单词
+    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF|cdr|CDR|Cdr))";  // 正则字符串，exp开始的单词
     std::wregex expression(rs);                   // 字符串传递给构造函数，建立正则表达式
 
     //添加列表项      // Display results.
@@ -176,7 +177,7 @@ bool CALLBACK keyBtnClick(HELE hEle, HELE hEventEle)
     }
 
     wchar_t pText[MAX_PATH] = {0};
-    wsprintfW(pText, L"匹配: %d 个文档(AI CDR EPS INDD格式), 鼠标双击: 打开文件，右键: 打开路径", id);
+    wsprintfW(pText, L"匹配: %d 个文档(AI CDR EPS INDD PDF格式), 鼠标双击: 打开文件，右键: 打开路径", id);
     XStatic_SetText(hStatic, pText);
     XWnd_RedrawWnd(hWindow, true);
     return true;
@@ -186,7 +187,7 @@ bool CALLBACK keyBtnClick(HELE hEle, HELE hEventEle)
 bool CALLBACK pathBtnClick(HELE hEle, HELE hEventEle)
 {
     char buf[MAX_PATH];
-    if (GetPath(NULL , buf))
+    if (GetPath(NULL, buf))
         charToWCHAR(savePath, buf);
     XEdit_SetText(pathEdit, savePath);
     return true;
@@ -197,7 +198,7 @@ bool CALLBACK runBtnClick(HELE hEle, HELE hEventEle)
     // 从文本框获得参数
     edit_text();
     // // 执行提取缩略图 主功能
-    bool ret = GuiThumbnail(keyFile , savePath);
+    bool ret = GuiThumbnail(keyFile, savePath);
     if (ret == false)
         return ret;
 
@@ -218,7 +219,7 @@ bool CALLBACK closeBtnClick(HELE hEle, HELE hEventEle)
 
 
 // 选择的文件全名 和路径
-wstring select_filename , select_filepath;
+wstring select_filename, select_filepath;
 
 BOOL CALLBACK MyEventListSelect(HELE hEle, HELE hEventEle, int id)
 {
@@ -232,9 +233,12 @@ BOOL CALLBACK MyEventListSelect(HELE hEle, HELE hEventEle, int id)
     XPic_SetImage(hPic1, XImage_LoadFile(L"")); //设置图片为空，释放图片文件
 
     wchar_t tmppng[MAX_PATH] = L"Thumbnail.png";
-    Thumbnail_TempPng(select_filename.c_str(),tmppng); // 生成新的临时预览图
+    bool flag = Thumbnail_TempPng(select_filename.c_str(), tmppng); // 生成新的临时预览图
 
-    XPic_SetImage(hPic1, XImage_LoadFile(tmppng ,true)); //设置显示图片
+    if (flag) {
+        XPic_SetImage(hPic1, XImage_LoadFile(tmppng, true)); //设置显示图片
+    }
+
     XWnd_RedrawWnd(hWindow, true);
 
     return true;

@@ -50,5 +50,5 @@ bool Thumbnail_TempPng(const wchar_t* src_filename , const wchar_t* tmppng)
             ret = CorelThumbnail_W(src_filename, tmppng);
         }
 
-    return true;
+    return ret;
 }

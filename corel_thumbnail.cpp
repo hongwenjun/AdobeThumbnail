@@ -130,8 +130,10 @@ bool cdr_extract_bmp(const char* cdr_filename, const char* bmp_filename)
 
 //   printf("\n%d\n", version);
 
-    if (version >= 1400)
+    if (version >= 1400 ){
         ret = zip_extract_onefile(cdr_filename, "metadata/thumbnails/thumbnail.bmp", bmp_filename);
+        if (!ret)  ret = zip_extract_onefile(cdr_filename, "previews/thumbnail.png", bmp_filename);
+        }
 
     if (version <= 1300)
         ret = cdr_riff_disp2bmp(cdr_filename, bmp_filename);

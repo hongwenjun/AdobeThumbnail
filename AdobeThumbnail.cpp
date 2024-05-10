@@ -24,6 +24,10 @@ bool AdobeThumbnail(const char* adobe_filename , const char* savejpeg_filename)
 
     /// ************* 获取 ID或者AI文档 的预览图 **************** ///
     FILE* adobe_file = fopen(adobe_filename, "rb");
+    if(NULL == adobe_file){
+        MessageBoxA(NULL, adobe_filename, "错误File", MB_OK);
+        return false;
+    }
     size_t file_size = get_fileSize(adobe_filename); // 获得文件大小
 
     size_t bufsize = 1 * MBsize;        // AI 和EPS 预览图在开头，INDD文件在末位
@@ -127,6 +131,7 @@ bool  AdobeThumbnail_W(const wchar_t* adobe_filename ,const wchar_t* savejpeg_fi
     char tofile[MAX_PATH] = {0};
     WCHARTochar(fromfile, adobe_filename);
     WCHARTochar(tofile, savejpeg_filename);
+
     bool ret = AdobeThumbnail(fromfile, tofile);
 
 //  printf("%d\t%s\n",ret, fromfile);

@@ -4,8 +4,11 @@
 
 ### 使用 AdobeThumbnail 参考视频
 
-- bilibili链接: https://www.bilibili.com/video/BV16K411W7ro/
+- bilibili链接: https://www.bilibili.com/video/BV1tT421Q7Kn
 - youtube链接:  https://youtu.be/pH5Zw5Cx6-8
+
+![](https://github.com/hongwenjun/AdobeThumbnail/raw/master/img/bilibili.webp)
+
 
 ## AdobeThumbnail 软件下载
 - [GuiAdobeThumbnail.7z](https://262235.xyz/GuiAdobeThumbnail.7z) 

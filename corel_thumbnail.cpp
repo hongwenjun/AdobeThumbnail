@@ -154,6 +154,14 @@ bool CorelThumbnail(const char* cdr_filename, const char* png_filename)
         return ret ;
     }
 
+    FILE* pfile = fopen(cdr_filename, "rb");
+    if(NULL == pfile){
+      MessageBoxA(NULL, cdr_filename, "错误File", MB_OK);
+      return false;
+    }
+
+
+
     char bmp_filename[MAX_PATH] = {0};
 
     if (png_filename == NULL) {

@@ -27,7 +27,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (IsFileExist(ConfigFile))
         LoadConfigFile();
 
-    hWindow = XWnd_CreateWindow(0, 0, 950, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2021 Hongwenjun (蘭雅)"); // 创建窗口
+    hWindow = XWnd_CreateWindow(0, 0, 950, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)"); // 创建窗口
     if (hWindow) {
         // 设置图标
         HICON logo_hIcon = LoadIcon(hInstance, (LPCTSTR)IDI_ICON1);
@@ -115,7 +115,7 @@ void InitXC_Window(HWINDOW& hWindow)
     XList_AddColumn(hList, 100, L"文件版本", 2);
 
     // 创建静态文本
-    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2021 Hongwenjun (蘭雅)", hWindow);
+    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)", hWindow);
 
     XStatic_Create(780, 195, 160, 18, L"微信扫一扫打赏作者", hWindow);
 

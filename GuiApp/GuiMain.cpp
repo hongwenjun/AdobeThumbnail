@@ -14,12 +14,10 @@ HWINDOW hWindow;
 HELE  keyEdit, pathEdit, hList, hStatic;
 HELE hPic1, hPic2, hPic3;
 
-
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
     Everything_Start();
     XInitXCGUI(); // 初始化
-
 
     extern char ConfigFile[MAX_PATH];
     GetAppDir(ConfigFile);
@@ -27,7 +25,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (IsFileExist(ConfigFile))
         LoadConfigFile();
 
-    hWindow = XWnd_CreateWindow(0, 0, 950, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)"); // 创建窗口
+    hWindow = XWnd_CreateWindow(0, 0, 960, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)"); // 创建窗口
     if (hWindow) {
         // 设置图标
         HICON logo_hIcon = LoadIcon(hInstance, (LPCTSTR)IDI_ICON1);
@@ -39,7 +37,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     }
     return 0;
 }
-
 
 // 读取和保存配置
 void LoadConfigFile()
@@ -58,13 +55,11 @@ void SaveConfigFile()
     wFile.close();
 }
 
-
 // 文本框回写配置
 bool edit_text(void)
 {
     XEdit_GetText(keyEdit, keyFile, MAX_PATH);
     XEdit_GetText(pathEdit, savePath, MAX_PATH);
-
     return true;
 }
 
@@ -81,20 +76,19 @@ void InitXC_Window(HWINDOW& hWindow)
     XEdit_SetText(keyEdit, keyFile);
     XEdit_SetText(pathEdit, savePath);
 
-
     // 工具提示按钮
     HELE keyButton = XBtn_Create(306, 2, 98, 22,  L"关键字 --> 搜索", hWindow);
     XEle_EnableToolTips(keyButton, true);
     XEle_SetToolTips(keyButton, L"请输入关键字,用空格隔开");
 
-    HELE pathButton = XBtn_Create(656, 2, 80, 32, L"选择目录", hWindow);
+    HELE pathButton = XBtn_Create(656, 2, 90, 32, L"选择目录", hWindow);
     XEle_EnableToolTips(pathButton, true);
     XEle_SetToolTips(pathButton, L"选择缩略图保存的目录");
 
-    HELE runButton = XBtn_Create(656, 40, 80, 40, L"开始执行", hWindow);
+    HELE runButton = XBtn_Create(656, 40, 90, 40, L"开始执行", hWindow);
     XEle_EnableToolTips(runButton, true);
     XEle_SetToolTips(runButton, L"开始执行提取缩略图");
-    HELE closeButton = XBtn_Create(656, 88, 80, 32, L"保存关闭", hWindow);
+    HELE closeButton = XBtn_Create(656, 88, 90, 32, L"保存关闭", hWindow);
 
 //    // 注册文本框输入事件
 //    XEle_RegisterEvent(keyEdit, XE_EDIT_CHANGE, keyEditChange);
@@ -117,14 +111,14 @@ void InitXC_Window(HWINDOW& hWindow)
     // 创建静态文本
     hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)", hWindow);
 
-    XStatic_Create(780, 195, 160, 18, L"微信扫一扫打赏作者", hWindow);
+    XStatic_Create(760, 165, 160, 18, L"兰雅VBA代码分享 lyvba.com", hWindow);
 
     //创建图片元素
-    hPic1 = XPic_Create(656, 250, 270, 256, hWindow);
+    hPic1 = XPic_Create(656, 225, 290, 315, hWindow);
     XPic_SetImage(hPic1, XImage_LoadFile(L"ACThumbs.png")); //设置显示图片
 
-    hPic2 = XPic_Create(740, 2, 190, 190, hWindow);
-    XPic_SetImage(hPic2, XImage_LoadFile(L"Thumbnail.dat")); //设置显示图片
+    hPic2 = XPic_Create(760, 5, 150, 150, hWindow);
+    XPic_SetImage(hPic2, XImage_LoadFile(L"logo.jpg")); //设置显示图片
 
 //    hPic3 = XPic_Create(654, 416, 128, 128, hWindow);
 //    XPic_SetImage(hPic3, XImage_LoadFile(L"Thumbnail.dat")); //设置显示图片
@@ -137,7 +131,6 @@ void InitXC_Window(HWINDOW& hWindow)
 
     XEle_SetFocus(keyEdit, true);
 }
-
 
 // 事件响应
 
@@ -259,7 +252,6 @@ BOOL CALLBACK MyEventList_MouseDBClick(HELE hEle, POINT* pPt)
 }
 
 
-
 // 选择一个目录
 int   GetPath(HWND hWnd, char* pBuffer)
 {
@@ -279,24 +271,29 @@ int   GetPath(HWND hWnd, char* pBuffer)
     return   lstrlen(pBuffer);
 }
 
-
 bool Everything_Start(void)
 {
     Everything_SetSearch(L"Everything.exe");
     bool EQRet =  Everything_Query(TRUE);
     if (EQRet == false) {
-
-        STARTUPINFO si;
-        PROCESS_INFORMATION pi;
-        ZeroMemory(&si, sizeof(si));
-        si.cb = sizeof(si);
-        // 后台隐藏
-        si.dwFlags   =   STARTF_USESHOWWINDOW;
-        si.wShowWindow   =   SW_HIDE;
-        ZeroMemory(&pi, sizeof(pi));
-        // Start the child process.
-        CreateProcess(NULL, "Everything.exe", NULL, NULL, FALSE, 0,
-                      NULL, NULL, &si, &pi);
+      MessageBoxA(NULL, "请先运行Everything软件!\n本软件全盘搜索功能需要Everything SDK.", "Everything SDK", MB_OK);
+      return EQRet;
     }
+
+//    if (EQRet == false) {
+//
+//        STARTUPINFO si;
+//        PROCESS_INFORMATION pi;
+//        ZeroMemory(&si, sizeof(si));
+//        si.cb = sizeof(si);
+//        // 后台隐藏
+//        si.dwFlags   =   STARTF_USESHOWWINDOW;
+//        si.wShowWindow   =   SW_HIDE;
+//        ZeroMemory(&pi, sizeof(pi));
+//        // Start the child process.
+//        CreateProcess(NULL, "Everything.exe", NULL, NULL, FALSE, 0,
+//                      NULL, NULL, &si, &pi);
+//    }
+
     return true;
 }

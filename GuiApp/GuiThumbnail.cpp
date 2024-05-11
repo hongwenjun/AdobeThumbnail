@@ -61,9 +61,7 @@ bool GuiThumbnail(const wchar_t* keyWord, const wchar_t* savePath)
         threads.emplace_back(std::thread(processFile, srcFilename, thumbFilename));
     }
     // 等待所有线程执行完毕
-    for (auto& thread : threads) {
-        thread.join();
-    }
+    for (auto& trd : threads) trd.join();
 
     return true;
 }

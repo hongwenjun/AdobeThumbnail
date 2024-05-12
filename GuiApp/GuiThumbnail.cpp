@@ -3,7 +3,6 @@
 #include <wchar.h>
 #include <thread>
 
-
 void processFile(const std::wstring& srcFile, const std::wstring& thumbFile)
 {
     // AI EPS INDD 文件导出缩略图
@@ -13,6 +12,13 @@ void processFile(const std::wstring& srcFile, const std::wstring& thumbFile)
         ret = CorelThumbnail_W(srcFile.c_str(), thumbFile.c_str());
 
     // 可以在此处添加处理成功或失败的逻辑
+    if (!ret){
+      char bad_File[MAX_PATH] = "001_Bad_Filelist.txt";
+      FILE * pf =  fopen(bad_File, "a+");
+      WCHARTochar(bad_File, srcFile.c_str());
+      fprintf(pf, "Name: %s\n", bad_File);
+      fclose(pf);
+    }
 }
 
 // 执行提取缩略图 主功能
@@ -22,7 +28,7 @@ bool GuiThumbnail(const wchar_t* keyWord, const wchar_t* savePath)
     wchar_t thumb_filename[MAX_PATH] = {0};
 
     Everything_SetSearch(keyWord);
-    if (false==Everything_Query(TRUE))
+    if (false == Everything_Query(TRUE))
         return false;
 
     std::vector<std::wstring> vec_files;
@@ -54,7 +60,23 @@ bool GuiThumbnail(const wchar_t* keyWord, const wchar_t* savePath)
 //            ret = CorelThumbnail_W(src_filename, thumb_filename);
 //    }
 
+    const int trn = 8;
     std::vector<std::thread> threads;
+
+    while (vec_files.size() > trn) {
+        for (int i = 0; i < trn; i++) {
+            const std::wstring& srcFilename = vec_files[i];
+            const std::wstring& thumbFilename = vec_names[i] + L"_T.jpg";
+            threads.emplace_back(std::thread(processFile, srcFilename, thumbFilename));
+        }
+        // 等待所有线程执行完毕
+        for (auto& trd : threads) trd.join();
+
+        threads.clear();
+        vec_files.erase(vec_files.begin(), vec_files.begin() + trn);
+        vec_names.erase(vec_names.begin(), vec_names.begin() + trn);
+    }
+
     for (int i = 0; i < vec_files.size(); i++) {
         const std::wstring& srcFilename = vec_files[i];
         const std::wstring& thumbFilename = vec_names[i] + L"_T.jpg";

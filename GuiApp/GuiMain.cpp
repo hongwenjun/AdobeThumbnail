@@ -88,7 +88,11 @@ void InitXC_Window(HWINDOW& hWindow)
     HELE runButton = XBtn_Create(656, 40, 90, 40, L"开始执行", hWindow);
     XEle_EnableToolTips(runButton, true);
     XEle_SetToolTips(runButton, L"开始执行提取缩略图");
+
     HELE closeButton = XBtn_Create(656, 88, 90, 32, L"保存关闭", hWindow);
+    HELE removeButton = XBtn_Create(656, 128, 90, 32, L"清理缩略图", hWindow);
+
+
 
 //    // 注册文本框输入事件
 //    XEle_RegisterEvent(keyEdit, XE_EDIT_CHANGE, keyEditChange);
@@ -98,7 +102,7 @@ void InitXC_Window(HWINDOW& hWindow)
     XEle_RegisterEvent(pathButton, XE_BNCLICK, pathBtnClick);
     XEle_RegisterEvent(runButton, XE_BNCLICK, runBtnClick);
     XEle_RegisterEvent(closeButton, XE_BNCLICK, closeBtnClick);
-
+    XEle_RegisterEvent(removeButton, XE_BNCLICK, removeBtnClick);
 
     //创建列表元素
     hList = XList_Create(1, 25, 650, 518, hWindow);
@@ -210,6 +214,14 @@ bool CALLBACK closeBtnClick(HELE hEle, HELE hEventEle)
     return true;
 }
 
+// 清理缩略图目录下图片索引文件
+bool CALLBACK removeBtnClick(HELE hEle, HELE hEventEle)
+{
+    int ret = MessageBoxW(NULL, savePath, L"目前只能手工清理", MB_OK);
+    ShellExecuteW(NULL, L"open", savePath, NULL, NULL, SW_SHOW);
+
+    return true;
+}
 
 // 选择的文件全名 和路径
 wstring select_filename, select_filepath;

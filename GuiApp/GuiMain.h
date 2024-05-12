@@ -33,6 +33,7 @@ bool CALLBACK pathBtnClick(HELE hEle, HELE hEventEle);
 bool CALLBACK runBtnClick(HELE hEle, HELE hEventEle);
 bool CALLBACK runBtnClick(HELE hEle, HELE hEventEle);
 bool CALLBACK closeBtnClick(HELE hEle, HELE hEventEle);
+bool CALLBACK removeBtnClick(HELE hEle, HELE hEventEle);
 
 BOOL CALLBACK MyEventListSelect(HELE hEle, HELE hEventEle, int id);
 

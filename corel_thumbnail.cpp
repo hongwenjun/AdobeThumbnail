@@ -3,6 +3,7 @@
 */
 
 #include "corel_thumbnail.h"
+#include <cstdio>
 #include <regex>
 #include <string>
 #include <atlimage.h>
@@ -67,21 +68,23 @@ bool zip_extract_onefile(const char* zip_filename, const char* filename , const 
     // 解压先使用 zipOpen64 来打开一个 ZIP 文件
     unzFile uf = unzOpen64(zip_filename);
 
-//    // 需要先使用 unzGetGlobalInfo64 来取得该文件的一些信息，来了解这个压缩包里一共包含了多少个文件，等等。
-//    unz_global_info64 gi;
-//
-//    if (unzGetGlobalInfo64(uf, &gi) != UNZ_OK) {
-//        return false;
-//    }
+    // 需要先使用 unzGetGlobalInfo64 来取得该文件的一些信息，来了解这个压缩包里一共包含了多少个文件，等等。
+    unz_global_info64 gi;
+
+    //  if (unzGetGlobalInfo64(uf, &gi) != UNZ_OK) {
+    //     unzClose(uf);
+    //     return false;
+    //  }
 
     // 尝试zip文件中找到该文件szFileName。
-    int err = UNZ_OK;
     if (unzLocateFile(uf, filename, CASESENSITIVITY) != UNZ_OK) {
 //       printf("file %s not found in the zipfile\n", filename);
+        unzClose(uf);
         return false;
     }
 
     if (!zip_extract_currentfile(uf, save_filename)) {
+        unzClose(uf);
         return false;
     }
 
@@ -135,7 +138,7 @@ bool cdr_extract_bmp(const char* cdr_filename, const char* bmp_filename)
         if (!ret)  ret = zip_extract_onefile(cdr_filename, "previews/thumbnail.png", bmp_filename);
         }
 
-    if (version <= 1300)
+    if (version <= 1300 && version > 1)
         ret = cdr_riff_disp2bmp(cdr_filename, bmp_filename);
 
     return ret;
@@ -146,45 +149,33 @@ bool CorelThumbnail(const char* cdr_filename, const char* png_filename)
 {
 
     string file_ext(cdr_filename);
-    string rs = "(.+)(\\.(?:cdr|CDR|Cdr|CDr|cdR))";  // 正则字符串，exp开始的单词
-    std::regex expression(rs);                   // 字符串传递给构造函数，建立正则表达式
+    string rs = "(.+)(\\.(?:cdr|CDR|Cdr|CDr|cdR))"; 
+    std::regex expression(rs);                 
     bool ret = regex_match(file_ext, expression);
     if (!ret) {
-        //      cout << "文件格式不对!\n";
         return ret ;
     }
 
     FILE* pfile = fopen(cdr_filename, "rb");
     if(NULL == pfile){
-      MessageBoxA(NULL, cdr_filename, "错误File", MB_OK);
+   //   MessageBoxA(NULL, cdr_filename, "错误File", MB_OK);
       return false;
     }
 
+    char temp_filename[128];
+    const char* tmpBmpFile =  tmpnam(temp_filename);
+    strcat(temp_filename,".bmp");
 
-
-    char bmp_filename[MAX_PATH] = {0};
-
-    if (png_filename == NULL) {
-        char tmp_filename[MAX_PATH] = {0};
-        png_filename = tmp_filename;
-        strcpy(tmp_filename , cdr_filename);
-        strcpy(strrchr(tmp_filename, '.') , ".png");
-    }
-
-    strcpy(bmp_filename , png_filename);
-    strcpy(strrchr(bmp_filename, '.') , ".bmp");
-
-//    printf("%s\t\%s\n", bmp_filename , png_filename);
-    ret =  cdr_extract_bmp(cdr_filename , bmp_filename);
+    ret =  cdr_extract_bmp(cdr_filename , tmpBmpFile);
 
     if (!ret)
         return false ;
 
     CImage image;  //  bmp 转换 png ，需要CImage类，头文件  atlimage.h
-    image.Load(bmp_filename);
+    image.Load(tmpBmpFile);
     image.Save(png_filename);
 
-    if (remove(bmp_filename) != 0)
+    if (remove(tmpBmpFile) != 0)
         perror("Error deleting file");
 
     return ret;

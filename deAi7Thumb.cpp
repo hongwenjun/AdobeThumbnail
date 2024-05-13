@@ -153,7 +153,9 @@ bool decode_Ai7Thumb_toPng(string& AI7Thumb, size_t width, size_t height, const 
     string hexbin = decodeHex((BYTE*)AI7Thumb.c_str() , AI7Thumb.size());
     string srgb = decodeAi7Thumbnail(hexbin);
 
-    const char* tmpBmpFile = "tmpBmp.bmp";
+    char temp_filename[128];
+    const char* tmpBmpFile =  tmpnam(temp_filename);
+    strcat(temp_filename,".bmp");
     // RGB 数据写bmp文件
     rgb_makeBmp_tofile(srgb, width, height, tmpBmpFile);
 

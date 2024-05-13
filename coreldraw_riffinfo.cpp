@@ -12,8 +12,10 @@ RIFF_CDR_TYPE cdr_riff ;
 int get_cdrfile_version(const char* cdr_filename)
 {
     FILE* cdr_pfile = fopen(cdr_filename , "rb");
-    if (cdr_pfile == NULL)
+    if (cdr_pfile == NULL){
+        fclose(cdr_pfile);
         return -1;     // 文件不能读 返回 -1
+    }
 
     fread(&cdr_riff , 1 , sizeof(cdr_riff) , cdr_pfile);
 
@@ -82,12 +84,10 @@ bool cdr_riff_disp2bmp(const char* cdr_filename, const char* bmp_filename)
         fwrite(bmp_buf, 1, raw_size + 10, bmp_dispfile);
         fclose(bmp_dispfile);
         delete[] bmp_buf;
-
-    } else
-        return false;
-
+    }
+    
     fclose(cdr_pfile);
-    return true;
+    return (FCC('DISP') == disp_chunk.fcc);
 }
 
 

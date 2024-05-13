@@ -1,0 +1,29 @@
+*.db
+*.user
+*.opendb
+Debug/
+Release/
+obj/
+*.html
+*.obj
+*.xml
+*.layout
+*.def
+*.layout
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib

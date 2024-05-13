@@ -25,7 +25,7 @@ bool AdobeThumbnail(const char* adobe_filename , const char* savejpeg_filename)
     /// ************* 获取 ID或者AI文档 的预览图 **************** ///
     FILE* adobe_file = fopen(adobe_filename, "rb");
     if(NULL == adobe_file){
-        MessageBoxA(NULL, adobe_filename, "错误File", MB_OK);
+    //    MessageBoxA(NULL, adobe_filename, "错误File", MB_OK);
         return false;
     }
     size_t file_size = get_fileSize(adobe_filename); // 获得文件大小

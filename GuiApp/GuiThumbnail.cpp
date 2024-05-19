@@ -10,6 +10,9 @@ void processFile(const std::wstring& srcFile, const std::wstring& thumbFile)
     // CorelDRAW CDR 文件导出缩略图
     if (!ret)
         ret = CorelThumbnail_W(srcFile.c_str(), thumbFile.c_str());
+    // DWG 文件导出缩略图
+    if (!ret)
+        ret = DWGThumbnail_W(srcFile.c_str(), thumbFile.c_str());
 
     // 可以在此处添加处理成功或失败的逻辑
     if (!ret){
@@ -33,7 +36,7 @@ bool GuiThumbnail(const wchar_t* keyWord, const wchar_t* savePath)
 
     std::vector<std::wstring> vec_files;
     std::vector<std::wstring> vec_names;
-    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF|cdr|CDR|Cdr))";  // 正则字符串，exp开始的单词
+    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF|cdr|CDR|Cdr|dwg|DWG|Dwg|DWg|dWG))";  // 正则字符串，exp开始的单词
     std::wregex expression(rs);                   // 字符串传递给构造函数，建立正则表达式
 
     for (int i = 0 ; i < Everything_GetNumResults(); i++) {
@@ -94,5 +97,7 @@ bool Thumbnail_TempPng(const wchar_t* src_filename, const wchar_t* tmppng)
     bool ret = AdobeThumbnail_W(src_filename, tmppng);
     if (!ret)
         ret = CorelThumbnail_W(src_filename, tmppng);
+    if (!ret)
+        ret = DWGThumbnail_W(src_filename, tmppng);
     return ret;
 }

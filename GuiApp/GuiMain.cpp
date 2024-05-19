@@ -25,7 +25,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdL
     if (IsFileExist(ConfigFile))
         LoadConfigFile();
 
-    hWindow = XWnd_CreateWindow(0, 0, 960, 600, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)"); // 创建窗口
+    hWindow = XWnd_CreateWindow(0, 0, 960, 600, L"Adobe AI EPS INDD PDF和CorelDRAW DWG 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)"); // 创建窗口
     if (hWindow) {
         // 设置图标
         HICON logo_hIcon = LoadIcon(hInstance, (LPCTSTR)IDI_ICON1);
@@ -113,7 +113,7 @@ void InitXC_Window(HWINDOW& hWindow)
     XList_AddColumn(hList, 100, L"文件版本", 2);
 
     // 创建静态文本
-    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)", hWindow);
+    hStatic = XStatic_Create(1, 545, 650, 22, L"Adobe AI EPS INDD PDF和CorelDRAW DWG 缩略图工具  版权所有 2013-2024 Hongwenjun (蘭雅)", hWindow);
 
     XStatic_Create(760, 165, 160, 18, L"兰雅VBA代码分享 lyvba.com", hWindow);
 
@@ -157,7 +157,7 @@ bool CALLBACK keyBtnClick(HELE hEle, HELE hEventEle)
     // 删除所有项目
     XList_DeleteAllItems(hList);
 
-    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF|cdr|CDR|Cdr))";  // 正则字符串，exp开始的单词
+    const wchar_t* rs = L"(.+)(\\.(?:ai|AI|indd|INDD|Indd|eps|EPS|Eps|pdf|PDF|cdr|CDR|Cdr|dwg|DWG|Dwg|DWg|dWG))";  // 正则字符串，exp开始的单词
     std::wregex expression(rs);                   // 字符串传递给构造函数，建立正则表达式
 
     //添加列表项      // Display results.
@@ -174,7 +174,7 @@ bool CALLBACK keyBtnClick(HELE hEle, HELE hEventEle)
     }
 
     wchar_t pText[MAX_PATH] = {0};
-    wsprintfW(pText, L"匹配: %d 个文档(AI CDR EPS INDD PDF格式), 鼠标双击: 打开文件，右键: 打开路径", id);
+    wsprintfW(pText, L"匹配: %d 个文档(AI CDR EPS INDD PDF DWG格式), 鼠标双击: 打开文件，右键: 打开路径", id);
     XStatic_SetText(hStatic, pText);
     XWnd_RedrawWnd(hWindow, true);
     return true;

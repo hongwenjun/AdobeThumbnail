@@ -135,6 +135,8 @@
 		<Unit filename="coreldraw_riffinfo.h" />
 		<Unit filename="deAi7Thumb.cpp" />
 		<Unit filename="deAi7Thumb.h" />
+		<Unit filename="dwg_thumbnail.cpp" />
+		<Unit filename="dwg_thumbnail.h" />
 		<Unit filename="otherapi.cpp" />
 		<Unit filename="otherapi.h" />
 		<Unit filename="resource.h" />

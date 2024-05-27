@@ -1,10 +1,16 @@
 ﻿#include "GuiThumbnail.h"
 #include <string.h>
 #include <wchar.h>
+#include <mutex>
 #include <thread>
+
+std::mutex mtx; // 声明一个互斥锁
 
 void processFile(const std::wstring& srcFile, const std::wstring& thumbFile)
 {
+    std::lock_guard<std::mutex> lock(mtx); // 在此作用域内自动加锁和解锁
+    // 访问共享资源的代码
+
     // AI EPS INDD 文件导出缩略图
     bool ret = AdobeThumbnail_W(srcFile.c_str(), thumbFile.c_str());
     // CorelDRAW CDR 文件导出缩略图
